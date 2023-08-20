@@ -19,7 +19,6 @@ mongoose.connect(process.env.DB_URI).then(() => {
 });
 
 // Use the cors middleware with appropriate options
-app.use(cors());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", true);
