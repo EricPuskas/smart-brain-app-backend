@@ -28,7 +28,9 @@ app.use((req, res, next) => {
     "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
   );
   if (req.method === "OPTIONS") {
-    res.sendStatus(204); // Respond with no content for OPTIONS requests
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE"); // Specify allowed methods for OPTIONS
+    res.header("Access-Control-Allow-Headers", "Content-Type"); // Specify allowed headers for OPTIONS
+    res.sendStatus(204); // Respond with no content
   } else {
     next();
   }
