@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB_URI).then(() => {
 
 // Use the cors middleware with appropriate options
 app.use(cors());
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
@@ -28,8 +28,13 @@ app.use(function (req, res, next) {
     "Access-Control-Allow-Headers",
     "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
   );
-  next();
+  if (req.method === "OPTIONS") {
+    res.sendStatus(204); // Respond with no content for OPTIONS requests
+  } else {
+    next();
+  }
 });
+
 app.use(express.json());
 
 app.post("/signin", (req, res) => {
