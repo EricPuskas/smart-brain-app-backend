@@ -18,7 +18,15 @@ mongoose.connect(process.env.DB_URI).then(() => {
   console.log("Connected to database!");
 });
 
-app.use(cors());
+// Use the cors middleware with appropriate options
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(express.json());
 
 app.post("/signin", (req, res) => {
